@@ -2,6 +2,7 @@ import { existsSync, mkdtempSync, readFileSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
+import { toolchain } from '@freestylejs/config/toolchain'
 import { scaffold } from '../scaffold.ts'
 import { sanitizePackageDir, validatePackageNameOrThrow } from '../validate.ts'
 import type { CreateOptions, TemplateName } from '../types.ts'
@@ -67,6 +68,15 @@ describe('create-pkg scaffolding', () => {
         expect(rootJson.repository).toMatchObject({
             url: 'git+https://github.com/acme/fixture-repo.git',
         })
+        expect(rootJson.packageManager).toBe(`pnpm@${toolchain.pnpm}`)
+        expect(
+            (rootJson.devDependencies as Record<string, string>).tsdown
+        ).toBe(toolchain.tsdown)
+        expect(
+            (rootJson.devDependencies as Record<string, string>)[
+                '@freestylejs/config'
+            ]
+        ).toBe(toolchain.config)
         expect(
             readFileSync(join(options.targetDir, 'tsconfig.json'), 'utf8')
         ).toContain('./packages/fixture/src/*')

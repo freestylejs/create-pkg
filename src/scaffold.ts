@@ -2,12 +2,9 @@ import { existsSync, mkdirSync, renameSync, rmSync } from 'node:fs'
 import { basename, dirname, join } from 'node:path'
 import { spawnSync } from 'node:child_process'
 import { randomUUID } from 'node:crypto'
-import { fileURLToPath } from 'node:url'
 import { applyMetadata, copyTemplate } from './render.ts'
 import { ensureEmptyTarget } from './validate.ts'
 import type { CreateOptions } from './types.ts'
-
-const generatorRoot = fileURLToPath(new URL('..', import.meta.url))
 
 function run(command: string, args: string[], cwd: string): void {
     const result = spawnSync(command, args, {
@@ -74,17 +71,13 @@ export function scaffold(options: CreateOptions): string {
     }
 
     if (options.git) initGit(options.targetDir)
-    if (options.install) run('pnpm', ['install'], options.targetDir)
-    const formatter = join(
-        generatorRoot,
-        'node_modules',
-        '.bin',
-        process.platform === 'win32' ? 'oxfmt.cmd' : 'oxfmt'
-    )
-    if (existsSync(formatter)) {
-        run(formatter, ['.'], options.targetDir)
+    if (options.install) {
+        run('pnpm', ['install'], options.targetDir)
+        run('pnpm', ['format'], options.targetDir)
     } else {
-        console.warn('oxfmt not found; generated files may need formatting')
+        console.warn(
+            'dependencies not installed; run pnpm install && pnpm format before verifying'
+        )
     }
     if (options.verify) {
         run('pnpm', ['test:ci'], options.targetDir)

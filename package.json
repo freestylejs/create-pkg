@@ -17,6 +17,7 @@
         "node": "^22.18.0 || ^24.11.0 || >=26.0.0",
         "pnpm": ">=10.20.0"
     },
+    "packageManager": "pnpm@10.20.0",
     "bin": {
         "create-pkg": "./dist/cli.js"
     },
@@ -40,15 +41,18 @@
         "format": "oxfmt .",
         "lint": "oxlint --fix --deny-warnings",
         "ts:typecheck": "tsc --noEmit --skipLibCheck",
+        "sync:toolchain": "node scripts/sync-toolchain.mjs --write",
+        "sync:check": "node scripts/sync-toolchain.mjs --check",
         "changeset": "changeset",
         "version-packages": "changeset version",
         "release": "changeset publish",
         "template:check": "node scripts/template-check.mjs",
         "verify:package": "pnpm build && publint --level error . && node scripts/template-check.mjs",
-        "verify:all": "pnpm ts:typecheck && pnpm check && pnpm test:coverage && pnpm verify:package"
+        "verify:all": "pnpm sync:check && pnpm ts:typecheck && pnpm check && pnpm test:coverage && pnpm verify:package"
     },
     "dependencies": {
         "@clack/prompts": "1.8.1",
+        "@freestylejs/config": "1.4.0",
         "jsonc-parser": "3.3.1",
         "picocolors": "1.1.1",
         "validate-npm-package-name": "8.0.0"
@@ -65,12 +69,5 @@
         "typescript": "7.0.2",
         "vite": "8.3.4",
         "vitest": "5.0.5"
-    },
-    "pnpm": {
-        "peerDependencyRules": {
-            "ignoreMissing": [
-                "vite-plus"
-            ]
-        }
     }
 }
