@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        "target": "es2021",
+        "module": "esnext",
+        "moduleResolution": "Bundler",
+        "lib": ["ES2023"],
+        "types": ["node"],
+        "noEmit": true,
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "noUncheckedIndexedAccess": true,
+        "exactOptionalPropertyTypes": true,
+        "noImplicitOverride": true,
+        "resolveJsonModule": true,
+        "allowImportingTsExtensions": true,
+        "rootDir": "./src",
+        "paths": {
+            "~/*": ["./src/*"]
+        }
+    },
+    "include": ["src/**/*"],
+    "exclude": ["node_modules", "dist"]
+}
