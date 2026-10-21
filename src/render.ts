@@ -124,10 +124,9 @@ function copyDirectory(
         if (skippedDirectories.has(entry)) continue
         const sourcePath = join(source, entry)
         const relativePath = relative(rootSource, sourcePath)
-        const renderedPath = relativePath.replaceAll(
-            '__packageDir__',
-            context.packageDir
-        )
+        const renderedPath = relativePath
+            .replaceAll('__packageDir__', context.packageDir)
+            .replace(/(^|\/)(gitignore|npmignore)$/, '$1.$2')
         const destinationPath = join(destination, renderedPath)
         const stat = statSync(sourcePath)
         if (stat.isDirectory()) {

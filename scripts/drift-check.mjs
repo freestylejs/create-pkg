@@ -89,9 +89,9 @@ function checkReference() {
     }
 }
 
-function compareFile(path, drift) {
+function compareFile(path, referencePathRelative, drift) {
     const templatePath = join(templateRoot, path)
-    const referencePath = join(reference, path)
+    const referencePath = join(reference, referencePathRelative)
     if (!existsSync(templatePath)) return
     if (!existsSync(referencePath)) {
         drift.push(`${path}: missing in reference`)
@@ -100,7 +100,7 @@ function compareFile(path, drift) {
     const expected = render(read(templatePath))
     const actual = read(referencePath)
     if (normalize(expected) !== normalize(actual)) {
-        drift.push(`${path}: content differs`)
+        drift.push(`${referencePathRelative}: content differs`)
         if (write) writeFileSync(referencePath, expected)
     }
 }
@@ -127,7 +127,9 @@ function compareScripts(drift) {
 try {
     checkReference()
     const drift = []
-    for (const path of sharedFiles) compareFile(path, drift)
+    for (const path of sharedFiles) compareFile(path, path, drift)
+    compareFile('gitignore', '.gitignore', drift)
+    compareFile('npmignore', '.npmignore', drift)
     compareScripts(drift)
 
     if (drift.length > 0) {
