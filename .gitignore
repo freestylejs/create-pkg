@@ -1,0 +1,9 @@
+node_modules/
+dist/
+coverage/
+.turbo/
+.trace/
+*.local
+.DS_Store
+.env
+.env.production

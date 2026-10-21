@@ -1,0 +1,40 @@
+{
+    "name": "__PACKAGE_NAME__",
+    "version": "0.0.0",
+    "description": "__DESCRIPTION__",
+    "license": "__LICENSE__",
+    "author": "__AUTHOR__",
+    "type": "module",
+    "keywords": [],
+    "private": true,
+    "repository": {
+        "type": "git",
+        "url": "git+__REPO_URL__.git",
+        "directory": "packages/__PACKAGE_DIR__"
+    },
+    "bugs": {
+        "url": "__REPO_URL__/issues"
+    },
+    "homepage": "__REPO_URL__/tree/main/packages/__PACKAGE_DIR__#readme",
+    "engines": {
+        "node": "^22.18.0 || ^24.11.0 || >=26.0.0"
+    },
+    "publishConfig": {
+        "access": "restricted"
+    },
+    "bin": {
+        "__CLI_BIN__": "./dist/cli.js"
+    },
+    "files": [
+        "dist"
+    ],
+    "exports": {
+        ".": "./dist/cli.js"
+    },
+    "scripts": {
+        "build": "tsdown",
+        "build:fast": "tsdown --no-dts",
+        "dev": "node --watch src/cli.ts",
+        "ts:typecheck": "tsc --noEmit --skipLibCheck"
+    }
+}

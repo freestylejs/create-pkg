@@ -1,0 +1,76 @@
+{
+    "name": "@freestylejs/create-pkg",
+    "version": "0.1.0",
+    "description": "Create freestylejs package repositories from templates.",
+    "license": "MIT",
+    "type": "module",
+    "private": false,
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/freestylejs/create-pkg.git"
+    },
+    "bugs": {
+        "url": "https://github.com/freestylejs/create-pkg/issues"
+    },
+    "homepage": "https://github.com/freestylejs/create-pkg#readme",
+    "engines": {
+        "node": "^22.18.0 || ^24.11.0 || >=26.0.0",
+        "pnpm": ">=10.20.0"
+    },
+    "bin": {
+        "create-pkg": "./dist/cli.js"
+    },
+    "files": [
+        "dist",
+        "templates"
+    ],
+    "exports": {
+        ".": "./dist/cli.js"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "scripts": {
+        "build": "tsdown",
+        "build:fast": "tsdown --no-dts",
+        "dev": "node --watch src/cli.ts",
+        "test": "vitest run",
+        "test:coverage": "vitest run --coverage",
+        "check": "oxlint --deny-warnings && oxfmt --check .",
+        "format": "oxfmt .",
+        "lint": "oxlint --fix --deny-warnings",
+        "ts:typecheck": "tsc --noEmit --skipLibCheck",
+        "changeset": "changeset",
+        "version-packages": "changeset version",
+        "release": "changeset publish",
+        "template:check": "node scripts/template-check.mjs",
+        "verify:package": "pnpm build && publint --level error . && node scripts/template-check.mjs",
+        "verify:all": "pnpm ts:typecheck && pnpm check && pnpm test:coverage && pnpm verify:package"
+    },
+    "dependencies": {
+        "@clack/prompts": "1.8.1",
+        "jsonc-parser": "3.3.1",
+        "picocolors": "1.1.1",
+        "validate-npm-package-name": "8.0.0"
+    },
+    "devDependencies": {
+        "@changesets/cli": "2.29.7",
+        "@types/node": "24.10.0",
+        "@types/validate-npm-package-name": "4.0.2",
+        "@vitest/coverage-v8": "5.0.5",
+        "oxfmt": "0.73.0",
+        "oxlint": "1.88.0",
+        "publint": "0.3.25",
+        "tsdown": "0.23.1",
+        "typescript": "7.0.2",
+        "vite": "8.3.4",
+        "vitest": "5.0.5"
+    },
+    "pnpm": {
+        "peerDependencyRules": {
+            "ignoreMissing": [
+                "vite-plus"
+            ]
+        }
+    }
+}
