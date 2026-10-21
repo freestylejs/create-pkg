@@ -92,6 +92,8 @@ describe('create-pkg scaffolding', () => {
         expect(
             existsSync(join(options.targetDir, 'scripts/sync-toolchain.mjs'))
         ).toBe(false)
+        expect(existsSync(join(options.targetDir, '.gitignore'))).toBe(true)
+        expect(existsSync(join(options.targetDir, '.npmignore'))).toBe(true)
         expect(
             readFileSync(join(options.targetDir, 'tsconfig.json'), 'utf8')
         ).toContain('./packages/fixture/src/*')
