@@ -19,6 +19,7 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
+                # freestyle-toolchain:node-matrix
                 node: [22.18.0, 24.19.0]
         steps:
             - uses: actions/checkout@v7
@@ -36,3 +37,22 @@ jobs:
             - run: pnpm test:coverage
             - run: pnpm verify:package
             - run: pnpm audit --prod --audit-level=high
+
+    drift:
+        runs-on: ubuntu-latest
+        timeout-minutes: 10
+        steps:
+            - uses: actions/checkout@v7
+            - uses: actions/checkout@v7
+              with:
+                  repository: freestylejs/.pkg
+                  path: reference
+            - uses: pnpm/action-setup@v6
+              with:
+                  version: 10.20.0
+            - uses: actions/setup-node@v7
+              with:
+                  node-version-file: .nvmrc
+                  cache: pnpm
+            - run: pnpm install --frozen-lockfile
+            - run: pnpm drift:check --reference reference

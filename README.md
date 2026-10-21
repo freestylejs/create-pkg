@@ -72,6 +72,15 @@ Generated projects use:
 The generator verifies every template in CI by scaffolding it into a temp
 directory and running its `test:ci` and `verify:package` commands.
 
+Version resolution is centralized in `@freestylejs/config`; the generator and
+templates run `freestyle-sync-toolchain` instead of maintaining local version
+lists. The reference `.pkg` repository is checked for structural drift:
+
+```bash
+pnpm drift:check
+pnpm drift:write
+```
+
 ## Development
 
 ```bash
@@ -80,4 +89,5 @@ pnpm build
 pnpm test:coverage
 pnpm check
 pnpm template:check
+pnpm drift:check
 ```

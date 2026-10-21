@@ -19,7 +19,8 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                node: [22.18.0, 24.19.0]
+                # freestyle-toolchain:node-matrix
+                node: [__CI_NODE_VERSIONS__]
         steps:
             - uses: actions/checkout@v7
             - uses: pnpm/action-setup@v6
