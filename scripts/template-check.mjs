@@ -1,4 +1,4 @@
-import { mkdtempSync, rmSync } from 'node:fs'
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { spawnSync } from 'node:child_process'
@@ -42,7 +42,17 @@ for (const template of templates) {
             ],
             root
         )
+        if (process.env.CREATE_PKG_CONFIG_OVERRIDE) {
+            const packagePath = join(target, 'package.json')
+            const pkg = JSON.parse(readFileSync(packagePath, 'utf8'))
+            pkg.pnpm ??= {}
+            pkg.pnpm.overrides ??= {}
+            pkg.pnpm.overrides['@freestylejs/config'] =
+                `link:${process.env.CREATE_PKG_CONFIG_OVERRIDE}`
+            writeFileSync(packagePath, `${JSON.stringify(pkg, null, 4)}\n`)
+        }
         run('pnpm', ['install', '--no-frozen-lockfile'], target)
+        run('pnpm', ['format'], target)
         run('pnpm', ['test:ci'], target)
         run('pnpm', ['verify:package'], target)
     } finally {

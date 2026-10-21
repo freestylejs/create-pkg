@@ -28,6 +28,7 @@ jobs:
                   node-version: 24.19.0
                   cache: pnpm
             - run: pnpm install --frozen-lockfile
+            - run: pnpm sync:check
             - run: pnpm build
             - run: pnpm ts:typecheck
             - run: pnpm check

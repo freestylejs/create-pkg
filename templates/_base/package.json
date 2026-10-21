@@ -27,7 +27,9 @@
         "test": "vitest",
         "test:watch": "vitest --watch -u",
         "test:coverage": "vitest run --coverage",
-        "test:ci": "pnpm build && pnpm check && pnpm test:coverage",
+        "test:ci": "pnpm sync:check && pnpm build && pnpm check && pnpm test:coverage",
+        "sync:toolchain": "node scripts/sync-toolchain.mjs --write",
+        "sync:check": "node scripts/sync-toolchain.mjs --check",
         "verify:package": "pnpm build && publint packages/__PACKAGE_DIR__ && attw --pack packages/__PACKAGE_DIR__ && node scripts/verify-package.mjs",
         "ts:typecheck": "turbo run ts:typecheck",
         "ts:perf": "rimraf ts-perf && tsc --noEmit --generateTrace ts-perf",
@@ -44,30 +46,23 @@
         "pkg:publish": "changeset publish",
         "pre-commit": "lint-staged"
     },
-    "packageManager": "pnpm@10.20.0",
+    "packageManager": "pnpm@__VERSION_PNPM__",
     "devDependencies": {
-        "@arethetypeswrong/cli": "0.18.5",
-        "@changesets/cli": "2.29.7",
-        "@freestylejs/config": "1.3.0",
-        "@types/node": "24.10.0",
-        "@vitest/coverage-v8": "5.0.5",
-        "husky": "9.1.7",
-        "lint-staged": "16.2.6",
-        "oxfmt": "0.73.0",
-        "oxlint": "1.88.0",
-        "publint": "0.3.25",
-        "rimraf": "6.1.0",
-        "tsdown": "0.23.1",
-        "turbo": "2.6.0",
-        "typescript": "7.0.2",
-        "vite": "8.3.4",
-        "vitest": "5.0.5"
-    },
-    "pnpm": {
-        "peerDependencyRules": {
-            "ignoreMissing": [
-                "@biomejs/biome"
-            ]
-        }
+        "@arethetypeswrong/cli": "__VERSION_ATTW__",
+        "@changesets/cli": "__VERSION_CHANGESETS__",
+        "@freestylejs/config": "__VERSION_CONFIG__",
+        "@types/node": "__VERSION_TYPES_NODE__",
+        "@vitest/coverage-v8": "__VERSION_COVERAGE_V8__",
+        "husky": "__VERSION_HUSKY__",
+        "lint-staged": "__VERSION_LINT_STAGED__",
+        "oxfmt": "__VERSION_OXFMT__",
+        "oxlint": "__VERSION_OXLINT__",
+        "publint": "__VERSION_PUBLINT__",
+        "rimraf": "__VERSION_RIMRAF__",
+        "tsdown": "__VERSION_TSDOWN__",
+        "turbo": "__VERSION_TURBO__",
+        "typescript": "__VERSION_TYPESCRIPT__",
+        "vite": "__VERSION_VITE__",
+        "vitest": "__VERSION_VITEST__"
     }
 }
