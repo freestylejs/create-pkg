@@ -5,6 +5,11 @@ updates:
       schedule:
           interval: weekly
       open-pull-requests-limit: 10
+      ignore:
+          - dependency-name: '@changesets/cli'
+            versions: ['3.x']
+          - dependency-name: '@types/node'
+            versions: ['26.x']
       groups:
           minor-and-patch:
               patterns: ['*']
