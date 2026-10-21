@@ -1,6 +1,6 @@
 {
     "name": "@freestylejs/create-pkg",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "Create freestylejs package repositories from templates.",
     "license": "MIT",
     "type": "module",
