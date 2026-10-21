@@ -16,8 +16,8 @@
     },
     "homepage": "__REPO_URL__#readme",
     "engines": {
-        "node": "^22.18.0 || ^24.11.0 || >=26.0.0",
-        "pnpm": ">=10.20.0"
+        "node": "__NODE_ENGINE_RANGE__",
+        "pnpm": "__PNPM_ENGINE_RANGE__"
     },
     "scripts": {
         "dev": "turbo run build && turbo run dev",
@@ -29,8 +29,8 @@
         "test:watch": "vitest --watch -u",
         "test:coverage": "vitest run --coverage",
         "test:ci": "pnpm sync:check && pnpm build && pnpm check && pnpm test:coverage",
-        "sync:toolchain": "node scripts/sync-toolchain.mjs --write",
-        "sync:check": "node scripts/sync-toolchain.mjs --check",
+        "sync:toolchain": "freestyle-sync-toolchain --write",
+        "sync:check": "freestyle-sync-toolchain --check",
         "verify:package": "publint packages/__PACKAGE_DIR__ && attw --pack packages/__PACKAGE_DIR__ && node scripts/verify-package.mjs",
         "ts:typecheck": "turbo run ts:typecheck",
         "ts:perf": "rimraf ts-perf && tsc --noEmit --generateTrace ts-perf",

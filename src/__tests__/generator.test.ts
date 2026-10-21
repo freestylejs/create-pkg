@@ -69,6 +69,12 @@ describe('create-pkg scaffolding', () => {
             url: 'git+https://github.com/acme/fixture-repo.git',
         })
         expect(rootJson.packageManager).toBe(`pnpm@${toolchain.pnpm}`)
+        expect((rootJson.engines as Record<string, string>).node).toBe(
+            toolchain.nodeEngine
+        )
+        expect((rootJson.scripts as Record<string, string>)['sync:check']).toBe(
+            'freestyle-sync-toolchain --check'
+        )
         expect(
             (rootJson.devDependencies as Record<string, string>).tsdown
         ).toBe(toolchain.tsdown)
@@ -77,6 +83,15 @@ describe('create-pkg scaffolding', () => {
                 '@freestylejs/config'
             ]
         ).toBe(toolchain.config)
+        expect(
+            readFileSync(
+                join(options.targetDir, '.github/workflows/ci.yml'),
+                'utf8'
+            )
+        ).toContain(`node: [${toolchain.ciNodes.join(', ')}]`)
+        expect(
+            existsSync(join(options.targetDir, 'scripts/sync-toolchain.mjs'))
+        ).toBe(false)
         expect(
             readFileSync(join(options.targetDir, 'tsconfig.json'), 'utf8')
         ).toContain('./packages/fixture/src/*')

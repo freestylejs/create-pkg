@@ -12,8 +12,8 @@ importers:
         specifier: 1.8.1
         version: 1.8.1
       '@freestylejs/config':
-        specifier: 1.4.0
-        version: 1.4.0(oxfmt@0.73.0)(oxlint@1.88.0)(typescript@7.0.2)
+        specifier: 1.5.0
+        version: 1.5.0(oxfmt@0.73.0)(oxlint@1.88.0)(typescript@7.0.2)
       jsonc-parser:
         specifier: 3.3.1
         version: 3.3.1
@@ -148,8 +148,9 @@ packages:
     resolution: {integrity: sha512-dlT1m5e/0yUL0kRNcQn7yGLVThkgbB0Ga/1AmfDDC/8ik6AIiSf2QLQO2zPYvefsHP0aFgxO93cVLCCfDp7kzQ==}
     engines: {node: '>= 20.12.0'}
 
-  '@freestylejs/config@1.4.0':
-    resolution: {integrity: sha512-Kga1eE3DXBLUMUm4QRfh5HIJf7SMvbCQ0G+4+cRNlabQa36dhHRbAlo3Xq+lhKOvCd/BGdvPrAkJntGcZKCg9Q==}
+  '@freestylejs/config@1.5.0':
+    resolution: {integrity: sha512-im9wMNb0Bahg1iApWHxRtlkrG1V2L241tg1Kn3OeEUMXqQ1F8rzuQpbW446IGS2XER/zVDB64n1eb3kCtcBJPQ==}
+    hasBin: true
     peerDependencies:
       '@biomejs/biome': '>=2.0.0'
       oxfmt: '>=0.70.0'
@@ -1669,7 +1670,7 @@ snapshots:
       fast-wrap-ansi: 0.2.2
       sisteransi: 1.0.5
 
-  '@freestylejs/config@1.4.0(oxfmt@0.73.0)(oxlint@1.88.0)(typescript@7.0.2)':
+  '@freestylejs/config@1.5.0(oxfmt@0.73.0)(oxlint@1.88.0)(typescript@7.0.2)':
     dependencies:
       typescript: 7.0.2
     optionalDependencies:

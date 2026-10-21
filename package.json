@@ -1,6 +1,6 @@
 {
     "name": "@freestylejs/create-pkg",
-    "version": "0.1.1",
+    "version": "0.2.0",
     "description": "Create freestylejs package repositories from templates.",
     "license": "MIT",
     "type": "module",
@@ -41,8 +41,10 @@
         "format": "oxfmt .",
         "lint": "oxlint --fix --deny-warnings",
         "ts:typecheck": "tsc --noEmit --skipLibCheck",
-        "sync:toolchain": "node scripts/sync-toolchain.mjs --write",
-        "sync:check": "node scripts/sync-toolchain.mjs --check",
+        "sync:toolchain": "freestyle-sync-toolchain --write",
+        "sync:check": "freestyle-sync-toolchain --check",
+        "drift:check": "node scripts/drift-check.mjs --check",
+        "drift:write": "node scripts/drift-check.mjs --write",
         "changeset": "changeset",
         "version-packages": "changeset version",
         "release": "changeset publish",
@@ -52,7 +54,7 @@
     },
     "dependencies": {
         "@clack/prompts": "1.8.1",
-        "@freestylejs/config": "1.4.0",
+        "@freestylejs/config": "1.5.0",
         "jsonc-parser": "3.3.1",
         "picocolors": "1.1.1",
         "validate-npm-package-name": "8.0.0"

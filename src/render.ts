@@ -8,7 +8,7 @@ import {
 } from 'node:fs'
 import { basename, dirname, join, relative } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { toolchain } from '@freestylejs/config/toolchain'
+import { toolchainPlaceholders } from '@freestylejs/config/toolchain'
 import type { TemplateContext, TemplateName } from './types.ts'
 
 const templateRoot = fileURLToPath(new URL('../templates', import.meta.url))
@@ -54,7 +54,7 @@ function isTextFile(path: string): boolean {
 }
 
 function renderString(value: string, context: TemplateContext): string {
-    return value
+    let rendered = value
         .replaceAll('__PROJECT_NAME__', context.projectName)
         .replaceAll('__PACKAGE_NAME__', context.packageName)
         .replaceAll('__PACKAGE_DIR__', context.packageDir)
@@ -65,24 +65,14 @@ function renderString(value: string, context: TemplateContext): string {
         .replaceAll('__LICENSE__', context.license)
         .replaceAll('__REPO_URL__', context.repoUrl)
         .replaceAll('__YEAR__', context.year)
-        .replaceAll('__VERSION_CONFIG__', toolchain.config)
-        .replaceAll('__VERSION_NODE__', toolchain.node)
-        .replaceAll('__VERSION_PNPM__', toolchain.pnpm)
-        .replaceAll('__VERSION_TYPESCRIPT__', toolchain.typescript)
-        .replaceAll('__VERSION_TSDOWN__', toolchain.tsdown)
-        .replaceAll('__VERSION_VITEST__', toolchain.vitest)
-        .replaceAll('__VERSION_COVERAGE_V8__', toolchain.coverageV8)
-        .replaceAll('__VERSION_VITE__', toolchain.vite)
-        .replaceAll('__VERSION_OXLINT__', toolchain.oxlint)
-        .replaceAll('__VERSION_OXFMT__', toolchain.oxfmt)
-        .replaceAll('__VERSION_TURBO__', toolchain.turbo)
-        .replaceAll('__VERSION_CHANGESETS__', toolchain.changesets)
-        .replaceAll('__VERSION_TYPES_NODE__', toolchain.typesNode)
-        .replaceAll('__VERSION_ATTW__', toolchain.attw)
-        .replaceAll('__VERSION_PUBLINT__', toolchain.publint)
-        .replaceAll('__VERSION_HUSKY__', toolchain.husky)
-        .replaceAll('__VERSION_LINT_STAGED__', toolchain.lintStaged)
-        .replaceAll('__VERSION_RIMRAF__', toolchain.rimraf)
+
+    for (const [placeholder, replacement] of Object.entries(
+        toolchainPlaceholders
+    )) {
+        rendered = rendered.replaceAll(placeholder, replacement)
+    }
+
+    return rendered
 }
 
 function renderJson(value: unknown, context: TemplateContext): unknown {
